@@ -15,6 +15,13 @@ mixin comment (title, str)
   .comments
     mixin comment('This', (('is regular, javascript')))
 
+mixin womble(flam)
+  .doodah
+    label(for=flam)
+    input(id=flam)
+
+mixin womble("flooble")
+
 mixin list()
   ul
     li foo

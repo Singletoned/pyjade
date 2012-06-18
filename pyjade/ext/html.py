@@ -56,6 +56,8 @@ class HTMLCompiler(pyjade.compiler.Compiler):
         def _mixin(self, args):
             if args:
                 arg_values = self._do_eval(args)
+                if not isinstance(arg_values, tuple):
+                    arg_values = (arg_values, )
             else:
                 arg_values = []
             local_context = dict(zip(arg_names, arg_values))
