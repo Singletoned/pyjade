@@ -31,6 +31,14 @@ from pyjade.utils import process
 #     suite.addTest(unittest.makeSuite(PyjadeTestCase))
 #     return suite
 
+def pprint_diff(item1, item2):
+    import difflib, pprint
+    if not isinstance(item1, basestring):
+        item1 = pprint.pformat(item1)
+    if not isinstance(item2, basestring):
+        item2 = pprint.pformat(item2)
+    for line in list(difflib.unified_diff(item1.split('\n'), item2.split('\n'))):
+        print line
 
 def teardown_func():
     pass
@@ -122,8 +130,7 @@ def run_case(case,process):
     html_file.close()
     try:
         processed_jade = process(jade_src).strip('\n')
-        print 'PROCESSED\n',processed_jade,len(processed_jade)
-        print 'EXPECTED\n',html_src,len(html_src)
+        pprint_diff(html_src, processed_jade)
         assert processed_jade==html_src
     except CurrentlyNotSupported:
         pass
